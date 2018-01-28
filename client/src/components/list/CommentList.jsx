@@ -15,9 +15,11 @@ const CommentList = ({comments, removeComment}) => {
     return (<Comment key={comment.id} comment={comment} removeComment={removeComment}/>);
   });
   return (
-    <ul>
-      {commentList}
-    </ul>
+    <div className="comment-list">
+      <ul>
+        {commentList}
+      </ul>
+    </div>
   );
 };
 

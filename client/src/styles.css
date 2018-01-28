@@ -1,0 +1,25 @@
+ul {
+  margin: 0;
+}
+
+.comment-form {
+  background-color: aquamarine;
+  grid-area: form;
+}
+
+.comment-list {
+  background-color: #7a7a7a ;
+  grid-area: list;
+  overflow-y: auto;
+}
+
+.container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 150px 1fr 150px;
+  grid-template-rows: 25% 1fr;
+  grid-row-gap: 30px;
+  grid-template-areas: 
+    ". form ."
+    ". list ."; 
+}
