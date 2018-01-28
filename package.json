@@ -5,29 +5,33 @@
   "author": "rqbazan <raquirozbazan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "watch": "babel server --out-dir build --source-maps --watch",
-    "build": "babel server --out-dir build --source-maps",
-    "go": "yarn build & node ./build/index.js",
-    "start-dev": "cross-env NODE_ENV=dev yarn go",
-    "start-prod": "cross-env NODE_ENV=prod yarn go",
-    "clear": "shx rm -rf ./build"
+    "watch-server": "babel server --out-dir build --source-maps --watch",
+    "build-server": "babel server --out-dir build --source-maps",
+    "watch-client": "npm run-script watch --prefix client",
+    "build-client": "npm run-script build --prefix client",
+    "build": "yarn build-server & yarn build-client",
+    "start-dev": "cross-env NODE_ENV=dev PORT=3000 nodemon ./build/index.js",
+    "start-prod": "cross-env NODE_ENV=prod PORT=8080 nodemon ./build/index.js",
+    "server-dev": "concurrently \"yarn watch-client\" \"yarn watch-server\" \"yarn start-dev\"",
+    "server-prod": "yarn build-client & yarn build-server & yarn start-prod"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
-    "graphql": "^0.12.3",
+    "graphql": "0.11.0",
     "graphql-relay": "^0.5.4",
     "mysql2": "^1.5.1",
     "sequelize": "^4.32.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-3": "^6.24.1",
+    "concurrently": "^3.5.1",
     "cross-env": "^5.1.3",
-    "shx": "^0.2.2"
+    "nodemon": "^1.14.11"
   }
 }

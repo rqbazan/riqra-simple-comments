@@ -15,12 +15,8 @@ module.exports = {
         app: ['babel-polyfill', './src/index.js']
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, '../build/client'),
         filename: 'index.bundle.js'
-    },
-    devServer: {
-        port: 3000,
-        contentBase: path.resolve(__dirname, 'src')
     },
     module: {
         loaders: [{

@@ -9,7 +9,7 @@ import '../node_modules/normalize.css/normalize.css';
 import './styles.css';
 
 const myclient = new ApolloClient({
-  link: new HttpLink({ uri: 'http://localhost:4000/graphql' }),
+  link: new HttpLink({ uri: `/graphql` }),
   cache: new InMemoryCache()
 });
 

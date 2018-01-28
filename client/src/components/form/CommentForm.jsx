@@ -13,10 +13,14 @@ class CommentForm extends React.Component {
     this.handleAddComment = this.handleAddComment.bind(this);
     this.handleChangeComment = this.handleChangeComment.bind(this);
     this.onEnterPress = this.onEnterPress.bind(this);
+    console.log('recargo 22');
   }
 
   async handleAddComment() {
     const content = this.state.content;
+    if (content.trim() === '') {
+      return;
+    }
     await this.props.addCommentMutation({
       variables: {
         content
