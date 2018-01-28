@@ -1,4 +1,6 @@
 import React from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 
 const Comment = ({comment, removeComment}) => {
@@ -14,17 +16,48 @@ const Comment = ({comment, removeComment}) => {
   );
 };
 
-const CommentList = ({comments, removeComment}) => {
-  const commentList = comments.map((comment) => {
-    return (<Comment key={comment.id} comment={comment} removeComment={removeComment}/>);
-  });
-  return (
-    <div className="comment-list">
-      <ul>
-        {commentList}
-      </ul>
-    </div>
-  );
-};
 
-export default CommentList;
+class CommentList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleRemoveComment = this.handleRemoveComment.bind(this);
+  }
+
+  async handleRemoveComment(id) {
+    await this.props.deleteCommentMutation({
+      variables: {
+        id
+      },
+      update: (store, data) => {
+        this.props.updateStoreAfterRemoveComment(store, id);
+      }
+    })
+  }
+
+  render() {
+    const commentList = this.props.comments.map((comment) => {
+      return (<Comment key={comment.id} comment={comment} removeComment={this.handleRemoveComment}/>);
+    });
+    return (
+      <div className="comment-list">
+        <ul>
+          {commentList}
+        </ul>
+      </div>
+    );
+  }
+}
+
+const DELETE_COMMENT_MUTATION = gql`
+  mutation DeleteCommentMutation($id: Int!) {
+    deleteComment(id: $id) {
+      id
+    }
+  }
+`;
+
+const CommentListWithMutation = graphql(DELETE_COMMENT_MUTATION, {
+  name: 'deleteCommentMutation'
+})(CommentList);
+
+export default CommentListWithMutation;

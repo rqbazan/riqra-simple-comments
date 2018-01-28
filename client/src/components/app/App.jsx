@@ -1,48 +1,76 @@
 import React from 'react';
 import CommentForm from '../form/CommentForm.jsx';
 import CommentList from '../list/CommentList.jsx';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-window.id = 0;
-export default class App extends React.Component {
+
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      comments: [{
-        id: 1212,
-        content: "Hola como estas Hola como estas Hola como estas Hola como estas"
-      }]
-    }
-    this.handleAddComment = this.handleAddComment.bind(this);
-    this.handleRemoveComment = this.handleRemoveComment.bind(this);
+    this.updateStoreAfterRemoveComment = this.updateStoreAfterRemoveComment.bind(this);
+    this.updateStoreAfterAddComment = this.updateStoreAfterAddComment.bind(this);
   }
 
-  handleAddComment(content) {
-    let newComment = {
-      id: window.id + 1,
-      content: content
-    }
-    window.id = window.id + 1,
-    this.state.comments.push(newComment)
-    this.setState({
-      comments: this.state.comments
-    })
-  }
-
-  handleRemoveComment(id) {
-    const remainder = this.state.comments.filter((comment) => {
-      if(comment.id !== id) return comment;
+  updateStoreAfterRemoveComment(store, id) {
+    let data = store.readQuery({
+      query: ALL_COMMENTS_QUERY
     });
-    this.setState({
-      comments: remainder
+    data.getAllComments = data.getAllComments.filter(comment => comment.id !== id);
+    store.writeQuery({
+      query: ALL_COMMENTS_QUERY, 
+      data
+    });
+  }
+
+  updateStoreAfterAddComment(store, comment) {
+    const data = store.readQuery({
+      query: ALL_COMMENTS_QUERY
+    });
+    data.getAllComments.unshift(comment);
+    store.writeQuery({
+      query: ALL_COMMENTS_QUERY, 
+      data
     });
   }
 
   render() {
+    if (this.props.query && this.props.query.loading) {
+      //TODO: Agregar una vista de espera mientras cargan los comentarios
+      return (
+        <div>
+          Loading UI
+        </div>
+      );
+    }
+    if (this.props.query && this.props.query.error) {
+      //TODO: Agregar una vista de error
+      return (
+        <div>
+          Error
+        </div>
+      );
+    }
     return (
       <div className="container">
-        <CommentForm addComment={this.handleAddComment}/>
-        <CommentList comments={this.state.comments} removeComment={this.handleRemoveComment}/>
+        <CommentForm placeholder="Escribe tu comentario" updateStoreAfterAddComment={this.updateStoreAfterAddComment}/>
+        <CommentList comments={this.props.query.getAllComments} updateStoreAfterRemoveComment={this.updateStoreAfterRemoveComment}/>
       </div>
     );
   }
-} 
+}
+
+const ALL_COMMENTS_QUERY = gql`
+  query {
+    getAllComments {
+      id,
+      content
+    }
+  } 
+`;
+
+const AppWithQuery = graphql(ALL_COMMENTS_QUERY, {
+  name: 'query'
+})(App);
+
+export default AppWithQuery;

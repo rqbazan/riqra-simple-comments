@@ -30,7 +30,7 @@ const Query = new GraphQLObjectType({
   description: 'This is the root query',
   fields: () => {
     return {
-      comments: {
+      getAllComments: {
         type: new GraphQLList(Comment),
         resolve: (root, args) => db.models.Comment.findAll({ where: args })
       }

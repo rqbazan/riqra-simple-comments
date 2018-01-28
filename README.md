@@ -6,5 +6,5 @@
 * [ORMs for Beginners: Models and Migrations with Sequelize in Node](https://www.duringthedrive.com/2017/05/06/models-migrations-sequelize-node/)
 * [GraphQL Core Concepts](https://www.howtographql.com/basics/2-core-concepts/)
 * [Create a Simple To-Do App With React](https://scotch.io/tutorials/create-a-simple-to-do-app-with-react)
-
+* [How to enable CORS for Express-GraphQL & Apollo Server](https://blog.graph.cool/enabling-cors-for-express-graphql-apollo-server-1ef999bfb38d)
 

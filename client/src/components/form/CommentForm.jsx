@@ -1,7 +1,9 @@
 import React from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 
-export default class CommentForm extends React.Component {
+class CommentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,14 +12,22 @@ export default class CommentForm extends React.Component {
     }
     this.handleAddComment = this.handleAddComment.bind(this);
     this.handleChangeComment = this.handleChangeComment.bind(this);
+    this.onEnterPress = this.onEnterPress.bind(this);
   }
 
-  handleAddComment() {
-    let content = this.state.content;
-    this.props.addComment(content);
-    this.setState({
-      content: '',
-      btnIsDisabled: true
+  async handleAddComment() {
+    const content = this.state.content;
+    await this.props.addCommentMutation({
+      variables: {
+        content
+      },
+      update: (store, { data: { addComment } }) => {
+        this.props.updateStoreAfterAddComment(store, addComment);
+        this.setState({
+          content: '',
+          btnIsDisabled: true
+        });
+      }
     })
   }
 
@@ -25,8 +35,15 @@ export default class CommentForm extends React.Component {
     let content = event.target.value; 
     this.setState({
       content: content,
-      btnIsDisabled: content.trim() === '' 
+      btnIsDisabled: content.trim() === ''
     });
+  }
+
+  onEnterPress(event) {
+    if(event.keyCode == 13 && event.shiftKey == false) {
+      event.preventDefault();
+      this.handleAddComment();
+    }
   }
 
   render() {
@@ -38,7 +55,8 @@ export default class CommentForm extends React.Component {
             onChange={this.handleChangeComment} 
             value={this.state.content} 
             autoFocus={true} 
-            placeholder="Ingresa tu comentario">
+            placeholder={this.props.placeholder}
+            onKeyDown={this.onEnterPress}>
           </textarea>
         </div>
         <div className="container-send-button">
@@ -48,3 +66,18 @@ export default class CommentForm extends React.Component {
     );  
   }
 }
+
+const ADD_COMMENT_MUTATION = gql`
+  mutation AddCommentMutation($content: String!) {
+    addComment(content: $content) {
+      id
+      content
+    }
+  }
+`;
+
+const CommentFormWithMutation = graphql(ADD_COMMENT_MUTATION, {
+  name: 'addCommentMutation'
+})(CommentForm);
+
+export default CommentFormWithMutation;
