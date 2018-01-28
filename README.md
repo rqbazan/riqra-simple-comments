@@ -7,4 +7,4 @@
 * [GraphQL Core Concepts](https://www.howtographql.com/basics/2-core-concepts/)
 * [Create a Simple To-Do App With React](https://scotch.io/tutorials/create-a-simple-to-do-app-with-react)
 * [How to enable CORS for Express-GraphQL & Apollo Server](https://blog.graph.cool/enabling-cors-for-express-graphql-apollo-server-1ef999bfb38d)
-
+* [All you need to know about Apollo Client 2](https://blog.graph.cool/all-you-need-to-know-about-apollo-client-2-7e27e36d62fd)
