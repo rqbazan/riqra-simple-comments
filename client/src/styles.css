@@ -1,14 +1,21 @@
 ul {
   margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+li {
+  border-bottom: 1px solid #cccccc;
+  list-style-position: inside;
 }
 
 .comment-form {
-  background-color: aquamarine;
+  background: linear-gradient(70deg, #ad74f7, #00d9ff);
   grid-area: form;
 }
 
 .comment-list {
-  background-color: #7a7a7a ;
+  background: linear-gradient(0deg, white, #fff6d7); ;
   grid-area: list;
   overflow-y: auto;
 }
@@ -16,10 +23,78 @@ ul {
 .container {
   height: 100vh;
   display: grid;
-  grid-template-columns: 150px 1fr 150px;
+  grid-template-columns: 250px 1fr 250px;
   grid-template-rows: 25% 1fr;
-  grid-row-gap: 30px;
   grid-template-areas: 
     ". form ."
     ". list ."; 
+}
+
+.container-text-area {
+  padding: 50px 50px 10px 50px;
+}
+
+.text-area {
+  width: 100%;
+  max-width: 100%;
+  resize: none;
+  padding: 30px;
+  margin: 0;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+
+.container-send-button {
+  padding: 0px 50px 0px 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 10px;
+  border-width: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.4);
+  color: black;
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
+.send-button {
+  background-color: #f3f3f3;
+}
+
+.send-button:hover:enabled {
+  background-color: #c0c0c0;
+}
+
+.send-button:disabled {
+  cursor: not-allowed;
+}
+
+.remove-button {
+  background-color: #ff7860;
+}
+
+.remove-button:hover {
+  background-color: #dd533b;
+}
+
+.list-content {
+  font-family: sans-serif;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background: blanchedalmond;
+}
+
+.container-list-content {
+  width: 80%;
+}
+
+.container-remove-button {
+  padding: 8px 0 0 0;
 }

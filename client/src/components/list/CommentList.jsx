@@ -4,8 +4,12 @@ import React from 'react';
 const Comment = ({comment, removeComment}) => {
   return (
     <li className="list-item">
+      <div className="container-list-content">
         <p className="list-content">{comment.content}</p>
-        <button className="remove-button" onClick={() => removeComment(comment.id)}>ELIMINAR</button>
+      </div>
+      <div className="container-remove-button">
+        <button className="btn remove-button" onClick={() => removeComment(comment.id)}>ELIMINAR</button>
+      </div>
     </li>
   );
 };

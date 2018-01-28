@@ -7,7 +7,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: []
+      comments: [{
+        id: 1212,
+        content: "Hola como estas Hola como estas Hola como estas Hola como estas"
+      }]
     }
     this.handleAddComment = this.handleAddComment.bind(this);
     this.handleRemoveComment = this.handleRemoveComment.bind(this);
