@@ -19,7 +19,7 @@ module.exports = {
         filename: 'index.bundle.js'
     },
     devServer: {
-        port: 8000,
+        port: 3000,
         contentBase: path.resolve(__dirname, 'src')
     },
     module: {
