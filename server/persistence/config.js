@@ -15,8 +15,8 @@ const config = {
     dialect: 'mysql',
     operatorsAliases: false
   }),
-  prod: new Config('COMMENTS', 'root', 'simple-pass-123456', {
-    host: 'localhost',
+  prod: new Config('COMMENTS', 'santiago@riqra-simple-comments-mysqldbserver', 'simple-pass-123456', {
+    host: 'riqra-simple-comments-mysqldbserver.mysql.database.azure.com',
     dialect: 'mysql',
     operatorsAliases: false
   })
