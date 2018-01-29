@@ -12,7 +12,7 @@
     "build": "yarn build-server & yarn build-client",
     "start-dev": "cross-env NODE_ENV=dev PORT=3000 nodemon ./build/index.js",
     "start-prod": "cross-env NODE_ENV=prod PORT=8080 nodemon ./build/index.js",
-    "server-dev": "concurrently \"yarn watch-client\" \"yarn watch-server\" \"yarn start-dev\"",
+    "server-dev": "concurrently --kill-others \"yarn watch-server\" \"yarn start-dev\"",
     "server-prod": "yarn build-client & yarn build-server & yarn start-prod"
   },
   "dependencies": {
