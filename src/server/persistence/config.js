@@ -1,4 +1,4 @@
-const IS_DEV_ENVIRONMENT = process.env.NODE_ENV == 'dev';
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 class Config {
   constructor(database, user, password, settings) {
@@ -22,4 +22,4 @@ const config = {
   })
 }
 
-export default IS_DEV_ENVIRONMENT? config.dev : config.prod;
+export default isDevelopment? config.dev : config.prod;

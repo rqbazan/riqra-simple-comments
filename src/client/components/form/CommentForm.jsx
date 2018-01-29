@@ -13,7 +13,6 @@ class CommentForm extends React.Component {
     this.handleAddComment = this.handleAddComment.bind(this);
     this.handleChangeComment = this.handleChangeComment.bind(this);
     this.onEnterPress = this.onEnterPress.bind(this);
-    console.log('recargo 22');
   }
 
   async handleAddComment() {
@@ -21,16 +20,16 @@ class CommentForm extends React.Component {
     if (content.trim() === '') {
       return;
     }
+    this.setState({
+      content: '',
+      btnIsDisabled: true
+    });
     await this.props.addCommentMutation({
       variables: {
         content
       },
       update: (store, { data: { addComment } }) => {
         this.props.updateStoreAfterAddComment(store, addComment);
-        this.setState({
-          content: '',
-          btnIsDisabled: true
-        });
       }
     })
   }

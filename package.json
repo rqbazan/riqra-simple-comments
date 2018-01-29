@@ -1,37 +1,57 @@
 {
-  "name": "simple-coments-server",
+  "name": "simple-comments",
   "version": "1.0.0",
-  "main": "index.js",
-  "author": "rqbazan <raquirozbazan@gmail.com>",
+  "description": "Riqra Challenge for FrontEnd Developer",
+  "author": {
+    "name": "Ricardo Quiroz Bazan",
+    "email": "raquirozbazan@gmail.com",
+    "url": "https://github.com/rqbazan"
+  },
   "license": "MIT",
   "scripts": {
-    "watch-server": "babel server --out-dir build --source-maps --watch",
-    "build-server": "babel server --out-dir build --source-maps",
-    "watch-client": "npm run-script watch --prefix client",
-    "build-client": "npm run-script build --prefix client",
-    "build": "yarn build-server & yarn build-client",
-    "start-dev": "cross-env NODE_ENV=dev PORT=3000 nodemon ./build/index.js",
-    "start-prod": "cross-env NODE_ENV=prod PORT=8080 nodemon ./build/index.js",
-    "server-dev": "concurrently --kill-others \"yarn watch-server\" \"yarn start-dev\"",
-    "server-prod": "yarn build-client & yarn build-server & yarn start-prod"
+    "clear": "shx rm -rf dist",
+    "start": "babel-watch ./src/server/app.js",
+    "build:server": "babel src/server --out-dir dist/server --source-maps",
+    "build:client": "webpack -p --config webpack.prod.config.js --progress",
+    "build": "yarn clear & yarn build:client & yarn build:server",
+    "server:prod": "yarn build & cross-env NODE_ENV=production PORT=8080 nodemon ./dist/server/app.js",
+    "server:dev": "yarn build nodemon ./dist/server/app.js"
   },
   "dependencies": {
+    "apollo-cache-inmemory": "^1.1.5",
+    "apollo-client": "^2.2.0",
+    "apollo-link-http": "^1.3.2",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
-    "graphql": "0.11.0",
-    "graphql-relay": "^0.5.4",
+    "graphql": "^0.12.3",
+    "graphql-tag": "^2.6.1",
     "mysql2": "^1.5.1",
+    "normalize.css": "^7.0.0",
+    "react": "^16.2.0",
+    "react-apollo": "^2.0.4",
+    "react-dom": "^16.2.0",
     "sequelize": "^4.32.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
-    "concurrently": "^3.5.1",
+    "babel-watch": "^2.0.7",
     "cross-env": "^5.1.3",
-    "nodemon": "^1.14.11"
+    "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "nodemon": "^1.14.11",
+    "react-hot-loader": "^3.1.3",
+    "shx": "^0.2.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^2.0.4",
+    "webpack-hot-middleware": "^2.21.0"
   }
 }

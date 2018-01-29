@@ -5,7 +5,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import App from './components/app/App.jsx';
-import '../node_modules/normalize.css/normalize.css';
+import 'normalize.css';
 import './styles.css';
 
 const myclient = new ApolloClient({
