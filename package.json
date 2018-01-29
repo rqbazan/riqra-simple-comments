@@ -10,12 +10,13 @@
   "license": "MIT",
   "scripts": {
     "clear": "shx rm -rf dist",
-    "start": "babel-watch ./src/server/app.js",
+    "watch": "babel-watch ./src/server/app.js",
     "build:server": "babel src/server --out-dir dist/server --source-maps",
     "build:client": "webpack -p --config webpack.prod.config.js --progress",
     "build": "yarn clear & yarn build:client & yarn build:server",
     "server:prod": "yarn build & cross-env NODE_ENV=production PORT=8080 nodemon ./dist/server/app.js",
-    "server:dev": "yarn build nodemon ./dist/server/app.js"
+    "server:dev": "yarn build nodemon ./dist/server/app.js",
+    "start": "yarn server:prod"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.1.5",
