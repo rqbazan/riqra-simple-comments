@@ -28,36 +28,36 @@ server.use('/graphql', bodyParser.json(), GraphHTTP({
 }));
 
 if (isDevelopment) {
-	console.log("SERVER ON DEVELOPMENT MODE");
+  console.log("SERVER ON DEVELOPMENT MODE");
 
-	server.use(webpackDevMiddleware(webpackCompiler, {
-		publicPath: config.output.publicPath
-	}));
+  server.use(webpackDevMiddleware(webpackCompiler, {
+    publicPath: config.output.publicPath
+  }));
 
-	server.use(webpackHotMiddleware(webpackCompiler));
+  server.use(webpackHotMiddleware(webpackCompiler));
 
-	server.get("/", (req, res, next) => {
-		webpackCompiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
-			if (err) {
-				return next(err.message);
-			}
-			res.set('content-type', 'text/html');
-			res.send(result);
-			res.end();
-		});
-	});
+  server.get("/", (req, res, next) => {
+    webpackCompiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
+      if (err) {
+        return next(err.message);
+      }
+      res.set('content-type', 'text/html');
+      res.send(result);
+      res.end();
+    });
+  });
 }
 else {
-	console.log("SERVER ON PRODUCTION MODE");
+  console.log("SERVER ON PRODUCTION MODE");
 
-	server.use(express.static(CLIENT_DIR));
-	server.get("/", (req, res) => res.sendFile(HTML_FILE));
+  server.use(express.static(CLIENT_DIR));
+  server.get("/", (req, res) => res.sendFile(HTML_FILE));
 }
 
 server.use((req, res, next) => {
-	next('404 not found');
+  next('404 not found');
 });
 
 server.listen(server.get("port"), () => {
-	console.log(`Server running on ${server.get("port")}`)
+  console.log(`Server running on ${server.get("port")}`)
 });

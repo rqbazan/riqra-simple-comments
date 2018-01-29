@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Launch Server",
       "program": "${workspaceRoot}/server/index.js",
-      "outFiles": [ "${workspaceRoot}/build/**/*.js" ]
+      "outFiles": [ "${workspaceRoot}/dist/**/*.js" ]
     }
   ]
 }
